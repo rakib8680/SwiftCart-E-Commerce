@@ -36,10 +36,63 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body class="font-['Inter'] bg-base-100 text-base-content">
-    <h1 class="text-4xl font-bold text-center py-20">SwiftCart E-Commerce</h1>
-    <p class="text-center text-lg text-gray-500">
-     Project setup complete —
-    </p>
+    <!-- ========== NAVBAR ========== -->
+    <nav class="sticky top-0 z-50 bg-white shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 lg:px-8 flex items-center justify-between h-16">
+        <!-- Mobile hamburger -->
+        <button id="menu-toggle" class="lg:hidden text-xl cursor-pointer">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <!-- Logo -->
+        <a href="#" class="text-2xl font-extrabold text-indigo-600 tracking-tight">
+          SwiftCart
+        </a>
+
+        <!-- Desktop nav links -->
+        <ul class="hidden lg:flex items-center gap-8 text-sm font-medium">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#products" class="nav-link">Products</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+
+        <!-- Cart icon -->
+        <button class="text-xl cursor-pointer hover:text-indigo-600 transition-colors">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </button>
+      </div>
+    </nav>
+
+    <!-- ========== MOBILE SIDEBAR ========== -->
+    <div id="mobile-overlay" class="fixed inset-0 bg-black/40 z-[60] hidden" onclick="closeMobileMenu()"></div>
+    <aside id="mobile-sidebar" class="fixed top-0 left-0 h-full w-64 bg-white z-[70] shadow-xl transform -translate-x-full transition-transform duration-300">
+      <div class="p-5">
+        <!-- Sidebar header -->
+        <div class="flex items-center justify-between mb-8">
+          <a href="#" class="text-2xl font-extrabold text-indigo-600">SwiftCart</a>
+          <button onclick="closeMobileMenu()" class="text-xl cursor-pointer hover:text-indigo-600">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <!-- Sidebar links -->
+        <ul class="flex flex-col gap-2 text-base font-medium">
+          <li><a href="#home" class="nav-link active block py-2 px-3 rounded-lg hover:bg-indigo-50" onclick="closeMobileMenu()">Home</a></li>
+          <li><a href="#products" class="nav-link block py-2 px-3 rounded-lg hover:bg-indigo-50" onclick="closeMobileMenu()">Products</a></li>
+          <li><a href="#about" class="nav-link block py-2 px-3 rounded-lg hover:bg-indigo-50" onclick="closeMobileMenu()">About</a></li>
+          <li><a href="#contact" class="nav-link block py-2 px-3 rounded-lg hover:bg-indigo-50" onclick="closeMobileMenu()">Contact</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main>
+      <section id="home" class="py-20 text-center">
+        <h1 class="text-4xl font-bold">SwiftCart E-Commerce</h1>
+        <p class="text-lg text-gray-500 mt-2">Navbar added ✅</p>
+      </section>
+    </main>
+    <!-- ===== END MAIN CONTENT ===== -->
 
     <!-- App JS -->
     <script src="app.js"></script>

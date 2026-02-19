@@ -1,0 +1,15 @@
+
+/* ---- Active nav link ---- */
+.nav-link {
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.nav-link.active {
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+.nav-link:hover {
+  color: #4f46e5;
+}
