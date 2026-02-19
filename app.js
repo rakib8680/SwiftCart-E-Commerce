@@ -1,30 +1,16 @@
 
-// ---- Mobile Menu Toggle ----
-const menuToggle = document.getElementById("menu-toggle");
-const mobileSidebar = document.getElementById("mobile-sidebar");
-const mobileOverlay = document.getElementById("mobile-overlay");
-
-menuToggle.addEventListener("click", () => {
-  mobileSidebar.classList.remove("-translate-x-full");
-  mobileOverlay.classList.remove("hidden");
-});
-
-function closeMobileMenu() {
-  mobileSidebar.classList.add("-translate-x-full");
-  mobileOverlay.classList.add("hidden");
-}
-
-// ---- Active Nav Link ----
+// ---- Active Nav Link----
 const navLinks = document.querySelectorAll(".nav-link");
-
+const currentPage = window.location.pathname.split("/").pop();
 navLinks.forEach((link) => {
-  link.addEventListener("click", function () {
-    navLinks.forEach((l) => l.classList.remove("active"));
-    const href = this.getAttribute("href");
-    document.querySelectorAll(`.nav-link[href="${href}"]`).forEach((l) => {
-      l.classList.add("active");
-    });
-  });
+  link.classList.remove("active");
+  const href = link.getAttribute("href");
+
+  if (currentPage === "products.html" && href === "products.html") {
+    link.classList.add("active");
+  } else if (currentPage !== "products.html" && (href === "index.html" || href === "#home")) {
+    link.classList.add("active");
+  }
 });
 
 console.log("SwiftCart E-Commerce — App loaded");
@@ -152,3 +138,60 @@ function filterByCategory(category) {
 
 loadCategories();
 filterByCategory("all");
+
+
+// ---- Show Product Details Modal ----
+function showProductDetails(productId) {
+  const modal = document.getElementById("product-modal");
+  const modalContent = document.getElementById("modal-content");
+  if (!modal || !modalContent) return;
+
+  // Show modal with loading spinner
+  modal.showModal();
+  modalContent.innerHTML = `
+    <div class="text-center py-10">
+      <i class="fa-solid fa-spinner fa-spin text-4xl text-indigo-600"></i>
+    </div>
+  `;
+
+  // Fetch product details
+  fetch(`https://fakestoreapi.com/products/${productId}`)
+    .then((res) => res.json())
+    .then((product) => {
+      // Generate star icons
+      const fullStars = Math.floor(product.rating.rate);
+      const hasHalfStar = product.rating.rate % 1 >= 0.5;
+      let starsHTML = "";
+      for (let i = 0; i < fullStars; i++) {
+        starsHTML += '<i class="fa-solid fa-star text-yellow-400"></i> ';
+      }
+      if (hasHalfStar) {
+        starsHTML += '<i class="fa-solid fa-star-half-stroke text-yellow-400"></i> ';
+      }
+
+      modalContent.innerHTML = `
+        <div class="flex flex-col md:flex-row gap-6">
+          <div class="flex-shrink-0 md:w-1/2 bg-gray-50 rounded-lg flex items-center justify-center p-6">
+            <img src="${product.image}" alt="${product.title}" class="max-h-72 object-contain" />
+          </div>
+          <div class="flex-1">
+            <span class="badge badge-primary">${product.category}</span>
+            <h2 class="text-xl font-bold mt-3">${product.title}</h2>
+            <div class="flex items-center gap-2 mt-2">
+              <div>${starsHTML}</div>
+              <span class="text-sm text-gray-500">${product.rating.rate} (${product.rating.count} reviews)</span>
+            </div>
+            <p class="text-2xl font-bold text-indigo-600 mt-4">$${product.price}</p>
+            <p class="text-sm text-gray-500 mt-4 leading-relaxed">${product.description}</p>
+            <button class="btn btn-primary w-full mt-6">
+              <i class="fa-solid fa-cart-plus mr-2"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+      `;
+    })
+    .catch((err) => {
+      console.error("Error loading product details:", err);
+      modalContent.innerHTML = `<p class="text-center text-red-500 py-10">Failed to load product details.</p>`;
+    });
+}
