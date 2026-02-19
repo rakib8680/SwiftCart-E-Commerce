@@ -139,7 +139,7 @@ filterByCategory("all");
 
 
 // ---- Show Product Details Modal ----
-function showProductDetails(productId) {
+function showProductDetails(id) {
   const modal = document.getElementById("product-modal");
   const modalContent = document.getElementById("modal-content");
   if (!modal || !modalContent) return;
@@ -153,7 +153,7 @@ function showProductDetails(productId) {
   `;
 
   // Fetch product details
-  fetch(`https://fakestoreapi.com/products/${productId}`)
+  fetch(`https://fakestoreapi.com/products/${id}`)
     .then((res) => res.json())
     .then((product) => {
       // Generate star icons
