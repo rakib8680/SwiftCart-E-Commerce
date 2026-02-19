@@ -113,7 +113,7 @@ function filterByCategory(category) {
   // Show loading
   container.innerHTML = `
     <div class="col-span-full text-center py-10">
-      <span class="loading loading-spinner loading-lg text-indigo-600"></span>
+      <i class="fa-solid fa-spinner fa-spin text-4xl text-indigo-600"></i>
     </div>
   `;
 
