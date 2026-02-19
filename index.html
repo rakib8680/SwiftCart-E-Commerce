@@ -178,7 +178,6 @@
       <!-- ========== TRENDING NOW ========== -->
       <section class="py-16 px-6 lg:px-8 max-w-7xl mx-auto bg-gray-50">
         <h2 class="text-3xl font-bold mb-10">Trending Now</h2>
-        <!-- Products will be loaded here by JS -->
         <div id="trending-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <!-- Loading spinner -->
           <div class="col-span-full text-center py-10">
@@ -189,6 +188,82 @@
 
     </main>
     <!-- ===== END MAIN CONTENT ===== -->
+
+
+    
+    <!-- ========== FOOTER ========== -->
+    <footer class="bg-gray-900 text-gray-300 mt-10">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 py-14">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+          <!-- Brand -->
+          <div>
+            <a href="#" class="text-2xl font-extrabold text-white">SwiftCart</a>
+            <p class="mt-3 text-sm leading-relaxed">
+              Your one-stop shop for all your fashion and lifestyle needs.
+              Quality products, fast delivery, and excellent support.
+            </p>
+          </div>
+
+          <!-- Quick Links -->
+          <div>
+            <h3 class="text-white font-semibold mb-4">QUICK LINKS</h3>
+            <ul class="space-y-2 text-sm">
+              <li><a href="#home" class="hover:text-white transition-colors">Home</a></li>
+              <li><a href="products.html" class="hover:text-white transition-colors">Products</a></li>
+              <li><a href="#about" class="hover:text-white transition-colors">About</a></li>
+              <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+            </ul>
+          </div>
+
+          <!-- Support -->
+          <div>
+            <h3 class="text-white font-semibold mb-4">SUPPORT</h3>
+            <ul class="space-y-2 text-sm">
+              <li><a href="#" class="hover:text-white transition-colors">FAQ</a></li>
+              <li><a href="#" class="hover:text-white transition-colors">Shipping</a></li>
+              <li><a href="#" class="hover:text-white transition-colors">Returns</a></li>
+              <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+            </ul>
+          </div>
+
+          <!-- Newsletter -->
+          <div>
+            <h3 class="text-white font-semibold mb-4">SUBSCRIBE TO OUR NEWSLETTER</h3>
+            <p class="text-sm mb-4">
+              The latest news, articles, and resources, sent to your inbox weekly.
+            </p>
+            <form class="flex gap-2" onsubmit="event.preventDefault()">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                class="flex-1 px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-indigo-500"
+              />
+              <button
+                type="submit"
+                class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg cursor-pointer transition-colors"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
+
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="border-t border-gray-700 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p class="text-sm">&copy; 2025 SwiftCart, Inc. All rights reserved.</p>
+          <!-- Social icons -->
+          <div class="flex gap-4 text-lg">
+            <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="hover:text-white transition-colors"><i class="fa-solid fa-envelope"></i></a>
+          </div>
+        </div>
+      </div>
+    </footer>
 
     <!-- App JS -->
     <script src="app.js"></script>
