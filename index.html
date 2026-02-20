@@ -61,7 +61,8 @@
       </div>
       <!-- Navbar End-->
       <div class="navbar-end">
-        <button class="btn btn-ghost text-xl">
+        <button onclick="toggleCartSidebar()" class="btn btn-ghost text-xl indicator">
+          <span class="indicator-item badge badge-primary badge-sm cart-count hidden">0</span>
           <i class="fa-solid fa-cart-shopping"></i>
         </button>
       </div>
@@ -172,7 +173,27 @@
     </main>
     <!-- ===== END MAIN CONTENT ===== -->
 
+    <!-- ========== CART SIDEBAR ========== -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black/40 z-[60] hidden" onclick="toggleCartSidebar()"></div>
+    <aside id="cart-sidebar" class="fixed top-0 right-0 h-full w-80 bg-white z-[70] shadow-xl transform translate-x-full transition-transform duration-300 flex flex-col">
+      <div class="p-5 border-b border-gray-100 flex items-center justify-between">
+        <h3 class="text-lg font-bold">Your Cart</h3>
+        <button onclick="toggleCartSidebar()" class="btn btn-ghost btn-sm btn-circle">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div id="cart-items" class="flex-1 overflow-y-auto px-5"></div>
+      <div class="p-5 border-t border-gray-100">
+        <div class="flex justify-between items-center mb-4">
+          <span class="font-bold text-lg">Total:</span>
+          <span id="cart-total" class="font-bold text-xl text-indigo-600">$0.00</span>
+        </div>
+        <button class="btn btn-primary w-full">Checkout</button>
+      </div>
+    </aside>
 
+    <!-- Toast Notification -->
+    <div id="cart-toast" class="fixed bottom-6 right-6 z-[80] bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg font-medium hidden opacity-0 transition-opacity duration-300"></div>
 
     <!-- ========== PRODUCT DETAIL MODAL (DaisyUI) ========== -->
     <dialog id="product-modal" class="modal">

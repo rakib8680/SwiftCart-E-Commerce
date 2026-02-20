@@ -16,6 +16,115 @@ navLinks.forEach((link) => {
 console.log("SwiftCart E-Commerce — App loaded");
 
 
+// =============================================
+// ---- CART FUNCTIONALITY ----
+// =============================================
+
+// Load cart from localStorage
+let cart = JSON.parse(localStorage.getItem("swiftcart")) || [];
+
+// Save cart to localStorage
+function saveCart() {
+  localStorage.setItem("swiftcart", JSON.stringify(cart));
+}
+
+// Update navbar cart badge count
+function updateCartCount() {
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  document.querySelectorAll(".cart-count").forEach((el) => {
+    el.textContent = totalItems;
+    el.classList.toggle("hidden", totalItems === 0);
+  });
+}
+
+// Add product to cart
+function addToCart(id, title, price, image) {
+  const existing = cart.find((item) => item.id === id);
+  if (existing) {
+    existing.quantity++;
+  } else {
+    cart.push({ id, title, price, image, quantity: 1 });
+  }
+  saveCart();
+  updateCartCount();
+  renderCartSidebar();
+  showToast(`${title} added to cart!`);
+}
+
+// Remove product from cart
+function removeFromCart(id) {
+  cart = cart.filter((item) => item.id !== id);
+  saveCart();
+  updateCartCount();
+  renderCartSidebar();
+}
+
+// Toggle cart sidebar
+function toggleCartSidebar() {
+  const sidebar = document.getElementById("cart-sidebar");
+  const overlay = document.getElementById("cart-overlay");
+  if (!sidebar || !overlay) return;
+  sidebar.classList.toggle("translate-x-full");
+  overlay.classList.toggle("hidden");
+}
+
+// Render cart sidebar contents
+function renderCartSidebar() {
+  const container = document.getElementById("cart-items");
+  const totalEl = document.getElementById("cart-total");
+  if (!container || !totalEl) return;
+
+  if (cart.length === 0) {
+    container.innerHTML = `
+      <div class="text-center py-16 text-gray-400">
+        <i class="fa-solid fa-cart-shopping text-5xl mb-4"></i>
+        <p class="font-medium">Your cart is empty</p>
+      </div>
+    `;
+    totalEl.textContent = "$0.00";
+    return;
+  }
+
+  container.innerHTML = cart
+    .map(
+      (item) => `
+      <div class="flex gap-3 items-center border-b border-gray-100 py-3">
+        <img src="${item.image}" alt="${item.title}" class="w-14 h-14 object-contain bg-gray-50 rounded-lg p-1" />
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium line-clamp-1">${item.title}</p>
+          <p class="text-sm text-indigo-600 font-bold">$${item.price} × ${item.quantity}</p>
+        </div>
+        <button onclick="removeFromCart(${item.id})" class="btn btn-ghost btn-sm btn-circle text-red-400 hover:text-red-600">
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+      </div>
+    `
+    )
+    .join("");
+
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  totalEl.textContent = `$${total.toFixed(2)}`;
+}
+
+// Show toast notification
+function showToast(message) {
+  const toast = document.getElementById("cart-toast");
+  if (!toast) return;
+  toast.textContent = message;
+  toast.classList.remove("hidden", "opacity-0");
+  toast.classList.add("opacity-100");
+  setTimeout(() => {
+    toast.classList.remove("opacity-100");
+    toast.classList.add("opacity-0");
+    setTimeout(() => toast.classList.add("hidden"), 300);
+  }, 2000);
+}
+
+// Initialize cart UI on page load
+updateCartCount();
+renderCartSidebar();
+
+
 // ---- Create Product Card ----
 function createProductCard(product) {
   return `
@@ -37,7 +146,7 @@ function createProductCard(product) {
           <button onclick="showProductDetails(${product.id})" class="btn btn-outline btn-sm flex-1">
             <i class="fa-solid fa-eye"></i> Details
           </button>
-          <button class="btn btn-primary btn-sm flex-1">
+          <button onclick="addToCart(${product.id}, '${product.title.replace(/'/g, "\\'").replace(/"/g, '&quot;')}', ${product.price}, '${product.image}')" class="btn btn-primary btn-sm flex-1">
             <i class="fa-solid fa-cart-plus"></i> Add
           </button>
         </div>
@@ -181,7 +290,7 @@ function showProductDetails(id) {
             </div>
             <p class="text-2xl font-bold text-indigo-600 mt-4">$${product.price}</p>
             <p class="text-sm text-gray-500 mt-4 leading-relaxed">${product.description}</p>
-            <button class="btn btn-primary w-full mt-6">
+            <button onclick="addToCart(${product.id}, '${product.title.replace(/'/g, "\\'").replace(/"/g, '&quot;')}', ${product.price}, '${product.image}')" class="btn btn-primary w-full mt-6">
               <i class="fa-solid fa-cart-plus mr-2"></i> Add to Cart
             </button>
           </div>
